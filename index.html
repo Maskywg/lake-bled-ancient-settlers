@@ -198,15 +198,15 @@
   <!-- MAIN CONTENT CONTAINER -->
   <main class="max-w-7xl mx-auto px-4 md:px-8 py-12 space-y-24">
 
-    <!-- 1. INTERACTIVE GIS ARCHAEOLOGY MAP (PLACED PROMINENTLY AT TOP) -->
+    <!-- 1. INTERACTIVE GIS ARCHAEOLOGY MAP (LEAFLET.JS + OPENSTREETMAP) -->
     <section id="gis-map" class="space-y-6 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-lake-400 uppercase tracking-widest mb-1.5">
-            <i data-lucide="map" class="w-4 h-4"></i> 互動考古遺址 GIS 系統
+            <i data-lucide="map" class="w-4 h-4"></i> Leaflet.js + OpenStreetMap (OSM) 互動地圖系統
           </div>
-          <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">布萊德與阿爾卑斯原始居民遺址發現地圖</h2>
-          <p class="text-slate-400 text-xs sm:text-sm mt-1">點擊地圖標記可展開出土文物照片與遺址詳解，亦可點擊右側卡片自動飛至該座標。</p>
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">布萊德與阿爾卑斯原始居民遺址 GIS 地圖</h2>
+          <p class="text-slate-400 text-xs sm:text-sm mt-1">基於 Leaflet.js 與 OpenStreetMap (OSM) 開源地理圖資，點擊地圖標記可展開出土文物實物照片與遺址詳解。</p>
         </div>
 
         <!-- Filter buttons -->
@@ -227,7 +227,8 @@
           
           <!-- Map Layer Controls overlay -->
           <div class="absolute top-4 right-4 z-20 glass-card px-3 py-2 rounded-xl text-xs flex gap-2 border border-slate-700 shadow-xl">
-            <button onclick="switchTileLayer('voyager')" class="px-2.5 py-1 rounded bg-lake-700 text-white font-medium" id="btn-layer-voyager">彩色地圖</button>
+            <button onclick="switchTileLayer('osm')" class="px-2.5 py-1 rounded bg-lake-700 text-white font-medium" id="btn-layer-osm">OSM 標準圖</button>
+            <button onclick="switchTileLayer('topo')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200" id="btn-layer-topo">OSM 地形圖</button>
             <button onclick="switchTileLayer('satellite')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200" id="btn-layer-satellite">衛星航拍</button>
             <button onclick="switchTileLayer('dark')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200" id="btn-layer-dark">深色模式</button>
           </div>
@@ -939,35 +940,39 @@
       }
     ];
 
-    // Leaflet Map Initialization with Ultra-Reliable Tile Layers
+    // Leaflet.js + OpenStreetMap (OSM) Initialization
     let map;
     let markers = [];
     let currentTileLayer;
 
     const tileLayers = {
-      voyager: L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '© OpenStreetMap, © CartoDB',
+      osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
         maxZoom: 19
       }),
+      topo: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>',
+        maxZoom: 17
+      }),
       satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles © Esri',
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
         maxZoom: 18
       }),
       dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '© OpenStreetMap, © CartoDB',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         maxZoom: 19
       })
     };
 
     function initMap() {
-      // Centered around Lake Bled and Upper Carniola
+      // Centered around Lake Bled and Upper Carniola using Leaflet + OpenStreetMap
       map = L.map('archaeology-map', {
         center: [46.25, 14.35],
         zoom: 9,
-        layers: [tileLayers.voyager]
+        layers: [tileLayers.osm]
       });
 
-      currentTileLayer = 'voyager';
+      currentTileLayer = 'osm';
 
       // Custom marker icon creator
       function getMarkerIcon(category) {
@@ -1059,7 +1064,7 @@
       currentTileLayer = type;
 
       // Update button styling
-      ['voyager', 'satellite', 'dark'].forEach(k => {
+      ['osm', 'topo', 'satellite', 'dark'].forEach(k => {
         const btn = document.getElementById(`btn-layer-${k}`);
         if (btn) {
           if (k === type) {
