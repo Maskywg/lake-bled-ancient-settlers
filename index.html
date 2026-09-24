@@ -3,7 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Primary Meta Tags -->
   <title>布萊德湖與阿爾卑斯史前溯源：斯洛維尼亞最原始居民與族群演變特別研究</title>
+  <meta name="title" content="布萊德湖與阿爾卑斯史前溯源：斯洛維尼亞最原始居民與族群演變特別研究">
+  <meta name="description" content="結合考古學、古人類學、古遺傳學與 Leaflet.js + OpenStreetMap (OSM) 互動地圖，深度解密布萊德湖與上卡尼奧拉五萬五千年四大族群地層演進：從尼安德塔人骨笛到凱爾特卡爾尼人與斯拉夫融爐。">
+  <meta name="keywords" content="布萊德湖, 斯洛維尼亞考古, 尼安德塔人骨笛, 卡尼奧拉, 卡爾尼人, 陶里斯奇人, 盧比亞納沼澤木輪, 波托奇卡洞穴, 斯拉夫大遷徙, Leaflet地圖">
+  <meta name="author" content="極東義大利與斯洛維尼亞數位策展深旅">
+
+  <!-- Open Graph / Facebook / LINE / WeChat -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://maskywg.github.io/lake-bled-ancient-settlers/">
+  <meta property="og:site_name" content="斯洛維尼亞阿爾卑斯史前考古特別研究">
+  <meta property="og:title" content="布萊德湖與阿爾卑斯史前溯源：斯洛維尼亞最原始居民與族群演變特別研究">
+  <meta property="og:description" content="五萬五千年前尼安德塔人洞熊骨笛、水上木樁獨木舟聚落、凱爾特卡爾尼人與斯拉夫融爐——互動 GIS 地圖與出土文物實物特展。">
+  <meta property="og:image" content="https://maskywg.github.io/lake-bled-ancient-settlers/assets/images/og_preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="布萊德湖與斯洛維尼亞阿爾卑斯史前居民特別研究轉貼預覽圖">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://maskywg.github.io/lake-bled-ancient-settlers/">
+  <meta name="twitter:title" content="布萊德湖與阿爾卑斯史前溯源：斯洛維尼亞最原始居民演變">
+  <meta name="twitter:description" content="結合考古學、遺傳學與 Leaflet.js + OpenStreetMap 互動地圖，探索上卡尼奧拉五萬五千年四大族群地層！">
+  <meta name="twitter:image" content="https://maskywg.github.io/lake-bled-ancient-settlers/assets/images/og_preview.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -146,7 +172,11 @@
       </nav>
 
       <!-- Action buttons -->
-      <div class="flex items-center space-x-2.5">
+      <div class="flex items-center space-x-2">
+        <button onclick="openShareModal()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-700 transition-all" title="查看社群轉貼預覽圖與分享">
+          <i data-lucide="share-2" class="w-3.5 h-3.5 text-lake-400"></i>
+          <span class="hidden sm:inline">轉貼預覽</span>
+        </button>
         <button onclick="openFluteModal()" class="flex items-center gap-1.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-amber-50 text-xs font-semibold px-3 py-1.5 rounded-lg shadow-md transition-all">
           <i data-lucide="music" class="w-3.5 h-3.5"></i>
           <span>骨笛試聽</span>
@@ -756,6 +786,50 @@
     </div>
   </div>
 
+  <!-- SOCIAL SHARE PREVIEW MODAL -->
+  <div id="share-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-lake-500/50 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+      <button onclick="closeShareModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-lake-500/20 text-lake-400 flex items-center justify-center">
+          <i data-lucide="share-2" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-xs uppercase text-lake-400 tracking-wider font-semibold">Social Media Preview Card</span>
+          <h3 class="text-xl font-bold font-heading text-white">社群轉貼預覽圖 (Open Graph / LINE / FB)</h3>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+        當您將本研究網頁分享至 LINE、Facebook、Twitter、Threads 或通訊軟體時，系統將自動顯示以下高解析度專題預覽卡片：
+      </p>
+
+      <!-- Preview Image Card -->
+      <div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-xl mb-4">
+        <img src="assets/images/og_preview.jpg" alt="社群轉貼預覽圖" class="w-full h-auto object-cover">
+        <div class="p-3.5 bg-slate-900 border-t border-slate-800 space-y-1">
+          <span class="text-[10px] text-lake-400 uppercase font-mono tracking-wider">maskywg.github.io/lake-bled-ancient-settlers</span>
+          <h4 class="text-sm font-bold text-white font-heading">布萊德湖與阿爾卑斯史前溯源：斯洛維尼亞最原始居民與族群演變特別研究</h4>
+          <p class="text-xs text-slate-400">結合考古學、古遺傳學與 Leaflet.js + OpenStreetMap 互動地圖，探索五萬五千年四大族群地層演變。</p>
+        </div>
+      </div>
+
+      <!-- Copy Link button -->
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <div class="flex-1 w-full bg-slate-950 px-3.5 py-2.5 rounded-xl border border-slate-800 text-xs text-slate-300 font-mono truncate">
+          https://maskywg.github.io/lake-bled-ancient-settlers/
+        </div>
+        <button onclick="copyShareUrl()" id="copy-btn" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-lake-600 hover:bg-lake-500 text-white font-semibold text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-lake-950">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span id="copy-btn-text">複製網址</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- FLUTE AUDIO SIMULATOR MODAL (WEB AUDIO API) -->
   <div id="flute-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
     <div class="glass-card max-w-xl w-full rounded-3xl p-6 sm:p-8 border border-amber-500/50 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
@@ -1259,11 +1333,32 @@
       document.getElementById('flute-modal').classList.add('hidden');
     }
 
+    function openShareModal() {
+      document.getElementById('share-modal').classList.remove('hidden');
+    }
+
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.add('hidden');
+    }
+
+    function copyShareUrl() {
+      const url = "https://maskywg.github.io/lake-bled-ancient-settlers/";
+      navigator.clipboard.writeText(url).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        btnText.innerText = "已複製連結！";
+        setTimeout(() => {
+          btnText.innerText = "複製網址";
+        }, 2000);
+      });
+    }
+
     // Modal click outside close
     window.onclick = function(event) {
       const modal = document.getElementById('flute-modal');
+      const shareModal = document.getElementById('share-modal');
       const lb = document.getElementById('lightbox-modal');
       if (event.target === modal) closeFluteModal();
+      if (event.target === shareModal) closeShareModal();
       if (event.target === lb) closeLightbox();
     }
 
