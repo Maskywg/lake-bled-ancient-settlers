@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>布萊德湖與阿爾卑斯史前溯源：斯洛維尼亞最原始居民與族群演變特別研究</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            lake: {
+              50: '#f0f9f8',
+              100: '#d7f0ed',
+              200: '#b2e2dd',
+              500: '#149c90',
+              700: '#0c6b63',
+              800: '#0c524d',
+              900: '#0b423f',
+              950: '#042725',
+            },
+            celtic: {
+              bronze: '#c88d3f',
+              amber: '#d97706',
+              gold: '#f59e0b',
+              dark: '#1c1917',
+            },
+            stone: {
+              850: '#211e1c',
+              950: '#121110',
+            }
+          },
+          fontFamily: {
+            serif: ['"Noto Serif TC"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Noto Serif TC', Georgia, serif;
+    }
+    .hero-glow {
+      background: radial-gradient(circle at 50% 30%, rgba(20, 156, 144, 0.25) 0%, rgba(12, 82, 77, 0.08) 50%, transparent 80%);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.1);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(20, 156, 144, 0.4);
+      border-radius: 4px;
+    }
+    .glass-card {
+      background: rgba(24, 28, 33, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-light {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .leaflet-popup-content-wrapper {
+      background: #181c21 !important;
+      color: #e2e8f0 !important;
+      border-radius: 12px !important;
+      border: 1px solid rgba(20, 156, 144, 0.3) !important;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+    }
+    .leaflet-popup-tip {
+      background: #181c21 !important;
+    }
+    .leaflet-container {
+      font-family: inherit;
+    }
+    /* Flute key animation */
+    .hole-btn:active {
+      transform: scale(0.92);
+    }
+    .pulse-glow {
+      box-shadow: 0 0 25px rgba(200, 141, 63, 0.6);
+    }
+  </style>
+</head>
+
+<body class="bg-[#0e1114] text-slate-200 antialiased selection:bg-lake-500 selection:text-white transition-colors duration-300">
+
+  <!-- TOP NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-slate-800/80 transition-all duration-300 py-3 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-lake-500 via-teal-700 to-amber-700 flex items-center justify-center shadow-lg shadow-lake-900/40">
+          <i data-lucide="compass" class="w-5 h-5 text-amber-200"></i>
+        </div>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-lake-400 font-semibold block">Slovenian Alps Archaeological Special</span>
+          <span class="text-base font-bold font-heading text-white tracking-wide">布萊德湖與阿爾卑斯原始居民溯源</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+        <a href="#overview" class="text-slate-300 hover:text-lake-400 transition-colors">研究總覽</a>
+        <a href="#era1" class="text-slate-300 hover:text-amber-400 transition-colors">1. 尼安德塔骨笛</a>
+        <a href="#era2" class="text-slate-300 hover:text-emerald-400 transition-colors">2. 湖泊水上木樁</a>
+        <a href="#era3" class="text-slate-300 hover:text-amber-300 transition-colors">3. 凱爾特卡爾尼人</a>
+        <a href="#era4" class="text-slate-300 hover:text-cyan-400 transition-colors">4. 斯拉夫基因融合</a>
+        <a href="#gis-map" class="text-slate-300 hover:text-lake-300 transition-colors flex items-center gap-1.5 bg-lake-950/60 px-3 py-1 rounded-full border border-lake-700/50">
+          <i data-lucide="map-pin" class="w-4 h-4 text-lake-400"></i> 遺址 GIS 地圖
+        </a>
+      </nav>
+
+      <!-- Action buttons -->
+      <div class="flex items-center space-x-3">
+        <button id="flute-trigger-btn" onclick="openFluteModal()" class="flex items-center gap-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-amber-50 text-xs md:text-sm font-semibold px-3.5 py-2 rounded-lg shadow-md transition-all">
+          <i data-lucide="music" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">骨笛互動試聽</span>
+        </button>
+        <button onclick="window.print()" class="p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-lg transition-colors title='列印或導出報告'">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden hero-glow border-b border-slate-800/60">
+    <div class="absolute inset-0 bg-[radial-gradient(#149c90_1px,transparent_1px)] [background-size:28px_28px] opacity-15 pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-lake-950/80 border border-lake-600/40 text-lake-300 text-xs font-medium mb-6">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        考古學 × 人類學 × 古遺傳學 地層層疊專題研究
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold font-heading text-white tracking-tight leading-tight max-w-5xl">
+        上卡尼奧拉的千古地層：<br>
+        <span class="bg-gradient-to-r from-emerald-300 via-lake-400 to-amber-300 bg-clip-text text-transparent">
+          布萊德湖與阿爾卑斯原始居民
+        </span>
+        族群演變史
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed font-light">
+        在布萊德湖（Lake Bled）與斯洛維尼亞阿爾卑斯山區（上卡尼奧拉 / Gorenjska），人類定居與族群繁衍已歷經五萬五千餘年。從冰河時期吹響洞熊骨笛的尼安德塔人，到湖泊干欄獨木舟先民，再到以血肉鑄就「卡尼奧拉」之名的凱爾特卡爾尼人，直至斯拉夫大遷徙的千年基因交融——這是一幅阿爾卑斯高山與翡翠水域間的偉大史詩。
+      </p>
+
+      <!-- Key Stratigraphy Summary Banner -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
+        <!-- 1 -->
+        <div onclick="scrollToEra('era1')" class="group cursor-pointer glass-card hover:border-amber-500/50 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold tracking-wider text-amber-400 uppercase">第 1 階段 · 舊石器時代</span>
+            <span class="text-xs text-slate-400 font-mono">~55,000 BP</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-amber-300 transition-colors font-heading">尼安德塔人與世界最古老骨笛</h3>
+          <p class="text-xs text-slate-400 mt-2 line-clamp-2">迪夫耶貝貝洞穴出土洞熊骨笛，證實人類已知最早的音樂與神聖心靈意識。</p>
+          <div class="mt-4 flex items-center text-xs text-amber-400/90 font-medium gap-1">
+            <span>探索遺址</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div onclick="scrollToEra('era2')" class="group cursor-pointer glass-card hover:border-emerald-500/50 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold tracking-wider text-emerald-400 uppercase">第 2 階段 · 新石器時代</span>
+            <span class="text-xs text-slate-400 font-mono">前 5000–2000</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors font-heading">湖泊水上木樁與世界最古老木輪</h3>
+          <p class="text-xs text-slate-400 mt-2 line-clamp-2">狩獵採集者與安納托利亞農耕融合，整木獨木舟（Deblaki）開發布萊德島。</p>
+          <div class="mt-4 flex items-center text-xs text-emerald-400/90 font-medium gap-1">
+            <span>探索遺址</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div onclick="scrollToEra('era3')" class="group cursor-pointer glass-card hover:border-celtic-gold/50 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold tracking-wider text-amber-300 uppercase">第 3 階段 · 鐵器時代</span>
+            <span class="text-xs text-slate-400 font-mono">前 4–1 世紀</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-amber-200 transition-colors font-heading">凱爾特卡爾尼人與陶里斯奇人</h3>
+          <p class="text-xs text-slate-400 mt-2 line-clamp-2">名省「卡尼奧拉」名源！阿爾卑斯高山冶鐵王國，布萊德島湖心水神自然祭所。</p>
+          <div class="mt-4 flex items-center text-xs text-amber-300/90 font-medium gap-1">
+            <span>探索遺址</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div onclick="scrollToEra('era4')" class="group cursor-pointer glass-card hover:border-cyan-500/50 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold tracking-wider text-cyan-400 uppercase">第 4 階段 · 6世紀大遷徙</span>
+            <span class="text-xs text-slate-400 font-mono">西元 500–至今</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors font-heading">斯拉夫遷徙與千年基因血統大融合</h3>
+          <p class="text-xs text-slate-400 mt-2 line-clamp-2">古斯拉夫信仰（愛神芝娃與三頭神）與在地原住民深度混血，造就現代斯洛維尼亞人。</p>
+          <div class="mt-4 flex items-center text-xs text-cyan-400/90 font-medium gap-1">
+            <span>探索遺址</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-16 space-y-28">
+
+    <!-- OVERVIEW & STRATIGRAPHIC EVOLUTION DIAGRAM -->
+    <section id="overview" class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden border border-slate-700/60 shadow-2xl">
+      <div class="flex flex-col lg:flex-row gap-8 items-center justify-between">
+        <div class="lg:w-1/2 space-y-5">
+          <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-lake-400">
+            <i data-lucide="layers" class="w-4 h-4"></i> 地層學、人類學與遺傳學核心論述
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">
+            四大族群地層演進：<br>
+            從洞穴骨笛到阿爾卑斯基因融爐
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            布萊德湖並非孤立的世外桃源，而是朱利安阿爾卑斯山口與波河平原、多瑙河流域交會的天然樞紐。
+            五萬年間，冰川退卻、農耕擴張、鐵器冶煉與斯拉夫浪潮在這片石灰岩與湖澤交錯的地貌上層層沉積，形成了今日斯洛維尼亞人的血脈基石。
+          </p>
+          
+          <div class="space-y-3 pt-2">
+            <div class="flex items-start gap-3 text-sm text-slate-300">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">1</span>
+              <div><strong class="text-white">舊石器時代（~5.5 萬年前）</strong>：尼安德塔人（Neanderthals）以高山洞穴為避難所，誕生了人類音樂意識的濫觴「迪夫耶貝貝骨笛」。</div>
+            </div>
+            <div class="flex items-start gap-3 text-sm text-slate-300">
+              <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">2</span>
+              <div><strong class="text-white">新石器/銅石並用時代（前 5000–2000）</strong>：歐洲西方狩獵採集者（WHG）與安納托利亞早期農民（EEF）混血，發展水上干欄聚落與 5,200 年最古老木輪軸。</div>
+            </div>
+            <div class="flex items-start gap-3 text-sm text-slate-300">
+              <span class="w-5 h-5 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">3</span>
+              <div><strong class="text-white">鐵器時代（前 4–1 世紀）</strong>：歷史首見具名原住民——凱爾特**卡爾尼人（Carni）**與陶里斯奇人，創立「卡尼奧拉」地名，尊奉布萊德島為水神聖域。</div>
+            </div>
+            <div class="flex items-start gap-3 text-sm text-slate-300">
+              <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">4</span>
+              <div><strong class="text-white">斯拉夫大遷徙（西元 6 世紀–至今）</strong>：斯拉夫人進駐阿爾卑斯，與羅馬化凱爾特原住民全面混血，建立以芝娃神與三頭神為核心的融合文明。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Stratigraphy Flowchart -->
+        <div class="lg:w-1/2 w-full bg-slate-950/80 p-6 rounded-2xl border border-slate-800">
+          <h4 class="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-4 text-center">族群演變與基因地層疊加圖解</h4>
+          
+          <div class="relative space-y-4">
+            <!-- Stage 1 item -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-r from-amber-950/40 to-slate-900 border-l-4 border-amber-500 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-amber-400 font-bold block">舊石器時代 (~55,000 BP)</span>
+                <span class="text-sm font-semibold text-white">尼安德塔人 (Neanderthals) ＋ 早期智人</span>
+              </div>
+              <span class="text-xs bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full font-mono">骨笛 / 洞熊文化</span>
+            </div>
+
+            <!-- Arrow down -->
+            <div class="flex justify-center text-slate-600 my-1">
+              <i data-lucide="chevrons-down" class="w-5 h-5 text-lake-500"></i>
+            </div>
+
+            <!-- Stage 2 item -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-r from-emerald-950/40 to-slate-900 border-l-4 border-emerald-500 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-emerald-400 font-bold block">新石器時代 (前 5000–2000)</span>
+                <span class="text-sm font-semibold text-white">WHG狩獵採集 ＋ EEF安納托利亞農耕</span>
+              </div>
+              <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full font-mono">干欄水上聚落 / 5200年木輪</span>
+            </div>
+
+            <!-- Arrow down -->
+            <div class="flex justify-center text-slate-600 my-1">
+              <i data-lucide="chevrons-down" class="w-5 h-5 text-lake-500"></i>
+            </div>
+
+            <!-- Stage 3 item -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-r from-amber-900/30 to-slate-900 border-l-4 border-amber-400 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-amber-300 font-bold block">鐵器時代 (前 4–1 世紀)</span>
+                <span class="text-sm font-semibold text-white">凱爾特卡爾尼人 (Carni) ＋ 陶里斯奇人</span>
+              </div>
+              <span class="text-xs bg-amber-400/20 text-amber-200 px-2.5 py-1 rounded-full font-mono">卡尼奧拉之源 / 諾里克鐵礦</span>
+            </div>
+
+            <!-- Arrow down -->
+            <div class="flex justify-center text-slate-600 my-1">
+              <i data-lucide="chevrons-down" class="w-5 h-5 text-lake-500"></i>
+            </div>
+
+            <!-- Stage 4 item -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-r from-cyan-950/50 to-slate-900 border-l-4 border-cyan-400 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-cyan-400 font-bold block">西元 6 世紀大遷徙至今</span>
+                <span class="text-sm font-semibold text-white">早期斯拉夫人 (Slavs) 與在地原住民深度混血</span>
+              </div>
+              <span class="text-xs bg-cyan-500/20 text-cyan-200 px-2.5 py-1 rounded-full font-mono">現代斯洛維尼亞基因融爐</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE GIS MAP SECTION -->
+    <section id="gis-map" class="space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-lake-400 uppercase tracking-widest mb-2">
+            <i data-lucide="map" class="w-4 h-4"></i> 互動考古遺址 GIS 系統
+          </div>
+          <h2 class="text-3xl font-bold font-heading text-white">布萊德與阿爾卑斯史前關鍵遺址地圖</h2>
+          <p class="text-slate-400 text-sm mt-1">點擊地圖上的各個遺址標記或下方分類標籤，即可縮放並查看詳細考古發掘成果與照片。</p>
+        </div>
+
+        <!-- Filter buttons -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterMapMarkers('all')" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-lake-600 text-white shadow-sm transition-all" data-filter="all">全部遺址 (9)</button>
+          <button onclick="filterMapMarkers('paleolithic')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all" data-filter="paleolithic">舊石器時代</button>
+          <button onclick="filterMapMarkers('neolithic')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all" data-filter="neolithic">新石器木樁</button>
+          <button onclick="filterMapMarkers('celtic')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all" data-filter="celtic">凱爾特鐵器</button>
+          <button onclick="filterMapMarkers('slavic')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all" data-filter="slavic">斯拉夫大融合</button>
+        </div>
+      </div>
+
+      <!-- Map & Sidebar container -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[640px]">
+        <!-- Leaflet Map Container -->
+        <div class="lg:col-span-2 rounded-2xl overflow-hidden border border-slate-700/70 shadow-2xl relative">
+          <div id="archaeology-map" class="w-full h-full z-10"></div>
+          
+          <!-- Map Layer Controls overlay -->
+          <div class="absolute top-4 right-4 z-20 glass-card px-3 py-2 rounded-xl text-xs flex gap-2 border border-slate-700">
+            <button onclick="switchTileLayer('topo')" class="px-2 py-1 rounded bg-lake-700 text-white font-medium">地形圖</button>
+            <button onclick="switchTileLayer('satellite')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200">衛星航拍</button>
+            <button onclick="switchTileLayer('dark')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200">深色地圖</button>
+          </div>
+        </div>
+
+        <!-- Sidebar Site Cards List -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-700/70 overflow-y-auto custom-scrollbar flex flex-col space-y-3" id="sites-list">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ERA 1: PALEOLITHIC & NEANDERTHALS -->
+    <section id="era1" class="space-y-8 scroll-mt-24">
+      <div class="flex items-center gap-3 border-b border-amber-500/30 pb-4">
+        <span class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg font-mono">01</span>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">舊石器時代 · 距今約 55,000–30,000 年前</span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">史前最原始居民：尼安德塔人與世界最古老骨笛</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Text details -->
+        <div class="lg:col-span-7 space-y-5 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p class="text-slate-200">
+            「尼安德塔人」與「克羅瑪儂人」雖因德國尼安德河谷（1856）與法國克羅瑪儂岩棚（1868）的首度發掘而得名，但那僅是學界命名的「型態標本產地」，而非其唯一的活動邊界。
+            <strong>考古學家是如何百分之百確定他們曾繁衍生息於斯洛維尼亞阿爾卑斯山區？</strong>
+          </p>
+
+          <!-- 5 Proof Pillars Card -->
+          <div class="p-5 rounded-2xl bg-amber-950/40 border border-amber-500/40 space-y-4">
+            <h4 class="text-amber-300 font-bold font-heading text-base flex items-center gap-2">
+              <i data-lucide="microscope" class="w-4 h-4"></i> 考古學五重「鐵證鏈」：如何確認古人類在此活動？
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-stone-950/70 rounded-xl border border-amber-900/50">
+                <strong class="text-amber-300 block mb-1">1. 特徵石器工業（Lithic Industries）</strong>
+                出土了尼安德塔人專屬的「莫斯特石器（Mousterian，勒瓦婁哇勒石核剝片技術）」，以及早期智人（克羅瑪儂人）特有的「奧瑞納石刃（Aurignacian blades）」。
+              </div>
+              <div class="p-3 bg-stone-950/70 rounded-xl border border-amber-900/50">
+                <strong class="text-amber-300 block mb-1">2. 地層學與放射性測年（Radiometric Dating）</strong>
+                利用碳-14、電子自旋共振（ESR）與熱釋光技術（TL），對洞穴未擾動原始地層進行嚴密測年，精確錨定在 55,000–30,000 年前。
+              </div>
+              <div class="p-3 bg-stone-950/70 rounded-xl border border-amber-900/50">
+                <strong class="text-amber-300 block mb-1">3. 用火爐灶與微地層灰燼（Hearths）</strong>
+                在洞穴深處發掘出多層人工石砌爐灶、炭化木灰與高溫燒裂的動物碎骨，證實有人類部族在此長期避寒烤火。
+              </div>
+              <div class="p-3 bg-stone-950/70 rounded-xl border border-amber-900/50">
+                <strong class="text-amber-300 block mb-1">4. 人工骨器與獵物屠宰痕（Cut Marks）</strong>
+                出土帶有人工刮削刻痕的骨針（Potočka zijalka）與人工精準鑽孔的骨笛（Divje Babe），且洞熊骨骼上有石器切割剝皮的刻痕。
+              </div>
+            </div>
+          </div>
+          
+          <div class="p-5 rounded-2xl bg-amber-950/30 border border-amber-600/30 space-y-3">
+            <h4 class="text-amber-300 font-bold font-heading text-base flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> 世紀考古重大發現：迪夫耶貝貝骨笛（Divje Babe Flute）
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-300">
+              在距離布萊德湖西南約 45 公里的<strong>迪夫耶貝貝洞穴（Divje Babe I Cave，伊德里亞河谷）</strong>，斯洛維尼亞科學院考古學家發掘出了著名的莫斯特文化層：
+            </p>
+            <ul class="text-xs sm:text-sm text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong>年代測定</strong>：經地層放射性與電子自旋共振測定，距今約 <strong>55,000 至 60,000 年</strong>（屬於尼安德塔人獨占歐洲的時期）。</li>
+              <li><strong>人類意義</strong>：骨笛由<strong>幼年洞熊左側股骨</strong>人工精準鑽孔製成，是<strong>全人類已知最古老的樂器</strong>。</li>
+              <li><strong>伴生遺物</strong>：同地層出土了數百件尼安德塔人莫斯特刮削器、尖狀器與人工用火炭燼層。</li>
+            </ul>
+          </div>
+
+          <p class="text-xs sm:text-sm">
+            而在海拔 1,700 公尺的<strong>波托奇卡洞穴（Potočka zijalka）</strong>與<strong>摩霍爾洞穴（Mokriška jama）</strong>，考古學家則發掘出距今約 35,000 年前早期智人（克羅瑪儂人）留下的<strong>歐洲最古老骨針</strong>與奧瑞納石刃，證實智人追隨高山洞熊與馬鹿進入了朱利安與卡姆尼克阿爾卑斯山區。
+          </p>
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <button onclick="focusSiteOnMap('divje_babe')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 border border-amber-500/40 text-xs font-semibold transition-all">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> 定位迪夫耶貝貝洞穴
+            </button>
+            <button onclick="openFluteModal()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold transition-all shadow-lg shadow-amber-900/40">
+              <i data-lucide="volume-2" class="w-4 h-4"></i> 互動體驗：骨笛音律模擬
+            </button>
+          </div>
+        </div>
+
+        <!-- Visual Art & Artifact -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="rounded-2xl overflow-hidden border border-amber-600/40 shadow-2xl relative group">
+            <img src="assets/images/neanderthal.jpg" alt="尼安德塔人吹奏骨笛復原圖" class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span class="text-xs text-amber-400 font-bold">歷史藝術復原</span>
+              <p class="text-xs text-slate-200 mt-1">尼安德塔人部族在阿爾卑斯石灰岩洞穴邊圍繞火堆、吹響洞熊骨笛的想像重構</p>
+            </div>
+          </div>
+
+          <!-- Real museum artifact info card -->
+          <div class="p-4 rounded-xl glass-card border border-slate-700/80 flex items-center gap-4">
+            <div class="w-16 h-16 rounded-lg bg-amber-950/60 border border-amber-500/30 flex-shrink-0 flex items-center justify-center p-1">
+              <i data-lucide="sparkles" class="w-8 h-8 text-amber-400"></i>
+            </div>
+            <div>
+              <h5 class="text-sm font-bold text-white">斯洛維尼亞國家博物館國寶 (Narodni muzej Slovenije)</h5>
+              <p class="text-xs text-slate-400 mt-0.5">迪夫耶貝貝骨笛真品現存放於盧比亞納國家博物館，為人類史前音樂文明第一號見證物。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERA 2: NEOLITHIC PILE DWELLERS & LAKE BLED -->
+    <section id="era2" class="space-y-8 scroll-mt-24">
+      <div class="flex items-center gap-3 border-b border-emerald-500/30 pb-4">
+        <span class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg font-mono">02</span>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold">新石器至銅石並用時代 · 西元前 5000–2000 年</span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">湖畔與水上木樁定居者：最古老木輪與布萊德湖獨木舟</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Visual Art -->
+        <div class="lg:col-span-5 order-2 lg:order-1 space-y-4">
+          <div class="rounded-2xl overflow-hidden border border-emerald-600/40 shadow-2xl relative group">
+            <img src="assets/images/pile_dwellers.jpg" alt="新石器時代布萊德湖干欄水上聚落與獨木舟" class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span class="text-xs text-emerald-400 font-bold">歷史場景復原</span>
+              <p class="text-xs text-slate-200 mt-1">新石器先民在布萊德湖與阿爾卑斯山巒間搭建干欄木樁房屋，乘獨木舟（Deblaki）捕魚穿梭</p>
+            </div>
+          </div>
+
+          <!-- 5,200 Year Wheel card -->
+          <div class="p-4 rounded-xl glass-card border border-emerald-700/50 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-400 uppercase">UNESCO 世界遺產亮點</span>
+              <span class="text-xs text-slate-400 font-mono">5,200 年歷史</span>
+            </div>
+            <h5 class="text-sm font-bold text-white">世界最古老木製輪軸 (Ljubljana Marshes Wheel)</h5>
+            <p class="text-xs text-slate-300">
+              於盧比亞納沼澤出土，由岑木（輪面）與橡木（輪軸）製成，精準利用楔形技術固連，是人類機械史上的巔峰奇蹟。
+            </p>
+          </div>
+        </div>
+
+        <!-- Text details -->
+        <div class="lg:col-span-7 order-1 lg:order-2 space-y-5 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p>
+            隨著末次冰河消退，阿爾卑斯冰川溶水注入山間盆地，造就了今日宛如藍綠寶石的<strong>布萊德冰川湖（Lake Bled）</strong>。
+            此時進入當地的居民是由<strong>歐洲西部狩獵採集者（WHG）</strong>與來自安納托利亞的<strong>早期歐洲農民（EEF）</strong>融匯而成的族群。
+          </p>
+
+          <div class="p-5 rounded-2xl bg-emerald-950/30 border border-emerald-600/30 space-y-3">
+            <h4 class="text-emerald-300 font-bold font-heading text-base flex items-center gap-2">
+              <i data-lucide="anchor" class="w-4 h-4"></i> 水上干欄木樁文化圈（Pile Dwellers / Mostiščarji）
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-300">
+              在布萊德周邊及盧比亞納沼澤一帶，先民發展出了高超的「水上干欄建築技術」——將數萬根削尖的橡木、梣木樁打入水底湖泥中，在水面上搭建防潮且防獸的高腳排屋（Kolišča）。
+            </p>
+            <ul class="text-xs sm:text-sm text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong>整木獨木舟（Deblaki）</strong>：先民以磨製石斧與火燒法將整根巨大橡木掏空，製成平底獨木舟，航行於湖沼之間。</li>
+              <li><strong>布萊德島的最初開發</strong>：布萊德湖心的天然岩石島嶼，成為水上先民在湖心躲避猛獸與外族的天然庇護所，亦出土了大量新石器磨製石器與陶片。</li>
+            </ul>
+          </div>
+
+          <p class="text-xs sm:text-sm">
+            古遺傳學分析顯示，這時期的阿爾卑斯湖畔先民引入了農業、小麥種植與家畜飼養，其 Y 染色體單倍群主要為 G2a 與 I2，奠定了斯洛維尼亞最早的農耕生活型態。
+          </p>
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <button onclick="focusSiteOnMap('bled_island')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition-all">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> 定位布萊德湖與湖心島
+            </button>
+            <button onclick="focusSiteOnMap('ljubljana_marshes')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition-all">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> 查看世界最古老木輪出土地
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERA 3: IRON AGE CELTIC TRIBES (CARNI & TAURISCI) -->
+    <section id="era3" class="space-y-8 scroll-mt-24">
+      <div class="flex items-center gap-3 border-b border-amber-400/30 pb-4">
+        <span class="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center font-bold text-lg font-mono">03</span>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-amber-300 font-semibold">鐵器時代 · 西元前 4 世紀–西元 1 世紀</span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">歷史記載最早具名「原住民」：凱爾特卡爾尼人與陶里斯奇人</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Text details -->
+        <div class="lg:col-span-7 space-y-5 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p class="text-slate-200">
+            進入鐵器時代（約西元前 400 年起），古希臘地理學家偽斯基拉克斯（Pseudo-Scylax）與羅馬地理泰斗斯特拉波（Strabo）的史料中，第一次以文字記錄了這片阿爾卑斯土地上的具名原住民族群——<strong class="text-amber-300 font-bold">凱爾特部族（Celts）</strong>。
+          </p>
+
+          <!-- Carni & Taurisci comparisons -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-amber-950/20 border border-amber-500/30 space-y-2">
+              <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block">重要部族 1 · 卡爾尼人 (Carni)</span>
+              <h5 class="text-base font-bold text-white font-heading">「卡尼奧拉」地名活化石</h5>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                卡爾尼人是定居於朱利安阿爾卑斯山腳、伊松佐河谷至克拉尼平原的凱爾特-伊利里亞強悍部族。布萊德所屬的斯洛維尼亞核心省份<strong>「卡尼奧拉（Carniola / 斯語：Kranjska）」</strong>以及名城<strong>「克拉尼（Kranj / 羅馬名 Carnium）」</strong>，其語源正無可爭議地來自這支原始土著<strong>「卡爾尼人（Carni）」</strong>！
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-950/20 border border-amber-500/30 space-y-2">
+              <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block">重要部族 2 · 陶里斯奇人 (Taurisci)</span>
+              <h5 class="text-base font-bold text-white font-heading">諾里庫姆高山冶鐵王國</h5>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                陶里斯奇人建立了著名的阿爾卑斯凱爾特**諾里庫姆王國（Regnum Noricum）**，精於高山鐵礦冶煉，其鍛造的「諾里克鋼（Ferrum Noricum）」名震羅馬帝國。他們將布萊德湖心孤島視為具備神聖庇護力的自然祭所，崇拜水神 Belenus 與林泉女神。
+              </p>
+            </div>
+          </div>
+
+          <!-- Situla art mention -->
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700/80 flex items-start gap-3">
+            <i data-lucide="shield" class="w-5 h-5 text-amber-400 flex-shrink-0 mt-1"></i>
+            <div class="text-xs sm:text-sm">
+              <strong class="text-white">哈爾施塔特與拉坦諾文化精髓：瓦切青銅坐壺（Vače Situla）</strong><br>
+              <span class="text-slate-400">出土於斯洛維尼亞中部的國寶級文物，細膩雕刻了凱爾特-伊利里亞貴族宴飲、角力、賽馬與武士隊列，展現了極高的金屬鑄造工藝與貴族階級社會。</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <button onclick="focusSiteOnMap('kranj_carnium')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 border border-amber-400/40 text-xs font-semibold transition-all">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> 定位克拉尼（卡爾尼人中心）
+            </button>
+            <button onclick="focusSiteOnMap('vace_situla')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition-all">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> 查看瓦切青銅桶出土地
+            </button>
+          </div>
+        </div>
+
+        <!-- Visual Art -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="rounded-2xl overflow-hidden border border-amber-500/40 shadow-2xl relative group">
+            <img src="assets/images/celtic_carni.jpg" alt="鐵器時代凱爾特卡爾尼人俯瞰布萊德湖" class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span class="text-xs text-amber-400 font-bold">歷史場景復原</span>
+              <p class="text-xs text-slate-200 mt-1">凱爾特卡爾尼人（Carni）武士與鐵匠佇立在阿爾卑斯懸崖，俯瞰布萊德湖心神聖祭所</p>
+            </div>
+          </div>
+
+          <!-- Etymology Card -->
+          <div class="p-4 rounded-xl glass-card border border-amber-500/30 text-xs space-y-2">
+            <div class="flex items-center gap-2 text-amber-400 font-bold uppercase">
+              <i data-lucide="book-open" class="w-4 h-4"></i> 地名演變語源鏈 (Etymological Tree)
+            </div>
+            <div class="font-mono text-slate-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+              <span class="text-amber-400 font-bold">Carni</span> (凱爾特部族) 
+              → <span class="text-white font-bold">Carnium</span> (羅馬高地要塞) 
+              → <span class="text-emerald-400 font-bold">Carniola</span> (中世紀公國) 
+              → <span class="text-cyan-400 font-bold">Kranjska / Kranj</span> (現代斯洛維尼亞)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERA 4: SLAVIC MIGRATION & GENETIC SYNTHESIS -->
+    <section id="era4" class="space-y-8 scroll-mt-24">
+      <div class="flex items-center gap-3 border-b border-cyan-500/30 pb-4">
+        <span class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg font-mono">04</span>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-cyan-400 font-semibold">西元 6 世紀大遷徙 · 西元 500 年至今</span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">斯拉夫大遷徙與現代斯洛維尼亞人的千年基因交融</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Visual Art -->
+        <div class="lg:col-span-5 order-2 lg:order-1 space-y-4">
+          <div class="rounded-2xl overflow-hidden border border-cyan-600/40 shadow-2xl relative group">
+            <img src="assets/images/slavs_settlement.jpg" alt="早期斯拉夫人定居與芝娃女神偶像" class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span class="text-xs text-cyan-400 font-bold">歷史場景復原</span>
+              <p class="text-xs text-slate-200 mt-1">斯拉夫先民在阿爾卑斯山谷安家，立起愛神芝娃（Živa）與三頭神（Triglav）神木像，與在地原住民和睦共居</p>
+            </div>
+          </div>
+
+          <!-- Genetics Chart Widget -->
+          <div class="p-4 rounded-xl glass-card border border-cyan-700/40 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-cyan-400 uppercase">現代斯洛維尼亞人 Y-DNA 基因庫解析</span>
+              <span class="text-xs text-slate-400">古DNA人類學</span>
+            </div>
+            
+            <!-- Progress bars -->
+            <div class="space-y-2 text-xs">
+              <div>
+                <div class="flex justify-between text-slate-300 mb-1">
+                  <span><strong>R1a (古斯拉夫血統)</strong></span>
+                  <span class="font-mono text-cyan-400">~38%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-cyan-400 rounded-full" style="width: 38%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-300 mb-1">
+                  <span><strong>R1b (凱爾特 / 西歐古住民)</strong></span>
+                  <span class="font-mono text-amber-400">~21%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-amber-400 rounded-full" style="width: 21%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-300 mb-1">
+                  <span><strong>I2a (古巴爾幹 / 舊石器採集先民)</strong></span>
+                  <span class="font-mono text-emerald-400">~22%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-400 rounded-full" style="width: 22%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-300 mb-1">
+                  <span><strong>E1b1b / G2a / J2 (新石器地中海農耕先民)</strong></span>
+                  <span class="font-mono text-purple-400">~15%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-purple-400 rounded-full" style="width: 15%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text details -->
+        <div class="lg:col-span-7 order-1 lg:order-2 space-y-5 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p>
+            西元 6 世紀後期（約西元 568 年倫巴底人南遷義大利後），<strong class="text-cyan-300 font-bold">早期斯拉夫人（Slavs）</strong>翻越喀爾巴阡山脈與潘諾尼亞平原，大舉湧入薩瓦河與朱利安阿爾卑斯山谷。
+          </p>
+
+          <div class="p-5 rounded-2xl bg-cyan-950/30 border border-cyan-600/30 space-y-3">
+            <h4 class="text-cyan-300 font-bold font-heading text-base flex items-center gap-2">
+              <i data-lucide="git-merge" class="w-4 h-4"></i> 融合而非滅絕：雙向同化與血統疊加
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-300">
+              考古學與人類學證據明確證實：斯拉夫人進駐後<strong>並未將原住民全部消滅</strong>，而是與殘存的羅馬化凱爾特人（Carni 部落後裔）深度混血與文化共生：
+            </p>
+            <ul class="text-xs sm:text-sm text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong>技術傳承</strong>：在地凱爾特原住民將高山冶鐵、梯田農耕、水上航渡與山區地名傳授給斯拉夫人。</li>
+              <li><strong>神話轉化</strong>：斯拉夫異教神祇落地生根——布萊德湖心島上建起了供奉<strong>愛與豐饒女神芝娃（Živa）</strong>的神廟；阿爾卑斯最高峰則被尊為掌握天、地、冥三界的<strong>三頭神（Triglav）</strong>聖山。</li>
+              <li><strong>基督教化演進</strong>：到了 8–9 世紀卡蘭塔尼亞與法蘭克時代，芝娃神廟被改建為今日聞名全球的「布萊德聖母升天朝聖教堂（Cerkev Marijinega vnebovzetja）」，延續了數千年的湖心神聖崇拜。</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-700/80">
+            <span class="text-xs text-cyan-400 font-bold block mb-1">特別研究結論：</span>
+            <p class="text-xs sm:text-sm text-slate-200">
+              現代布萊德與斯洛維尼亞人的血脈與文化基因庫，實質上是一座由<strong>「古斯拉夫拓荒者 ＋ 原住凱爾特人（卡爾尼人） ＋ 羅馬化居民 ＋ 歐洲原初湖泊干欄先民」</strong>經歷數千年水乳交融而成的宏大複合體！
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <button onclick="focusSiteOnMap('triglav_peak')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-300 border border-cyan-500/40 text-xs font-semibold transition-all">
+              <i data-lucide="mountain" class="w-4 h-4"></i> 定位特里格拉夫聖山 (Triglav)
+            </button>
+            <button onclick="focusSiteOnMap('bled_island')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition-all">
+              <i data-lucide="church" class="w-4 h-4"></i> 查看布萊德島芝娃神廟遺址
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH HIGHLIGHTS & COMPARATIVE TABLE -->
+    <section class="glass-card rounded-3xl p-6 md:p-10 border border-slate-700/60 shadow-2xl space-y-6">
+      <div class="flex items-center justify-between flex-wrap gap-4 border-b border-slate-700/80 pb-4">
+        <div>
+          <span class="text-xs text-lake-400 uppercase tracking-widest font-semibold block">學術對照矩陣</span>
+          <h3 class="text-2xl font-bold font-heading text-white">上卡尼奧拉歷史居民全階段綜合對照表</h3>
+        </div>
+        <span class="text-xs px-3 py-1 bg-slate-800 text-slate-400 rounded-full font-mono">斯洛維尼亞國家博物館考古文獻彙整</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-slate-700 text-slate-400 uppercase tracking-wider font-semibold">
+              <th class="py-3 px-4">歷史時期</th>
+              <th class="py-3 px-4">族群代表</th>
+              <th class="py-3 px-4">關鍵考古遺址</th>
+              <th class="py-3 px-4">世界級出土文物 / 象徵</th>
+              <th class="py-3 px-4">對現代斯洛維尼亞之深遠遺產</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            <tr class="hover:bg-amber-950/20 transition-colors">
+              <td class="py-3.5 px-4 font-mono font-bold text-amber-400">舊石器時代<br><span class="text-[11px] text-slate-400">~5.5 萬年前</span></td>
+              <td class="py-3.5 px-4 font-semibold text-white">尼安德塔人<br><span class="text-slate-400 text-xs">早期智人（克羅馬儂）</span></td>
+              <td class="py-3.5 px-4">迪夫耶貝貝洞穴<br>波托奇卡洞穴 (Olševa)</td>
+              <td class="py-3.5 px-4 text-amber-300 font-medium">迪夫耶貝貝骨笛（人類最古老樂器）<br>高山洞熊骨針</td>
+              <td class="py-3.5 px-4">確立歐洲最早人類心靈、藝術與高山避難所據點</td>
+            </tr>
+
+            <tr class="hover:bg-emerald-950/20 transition-colors">
+              <td class="py-3.5 px-4 font-mono font-bold text-emerald-400">新石器/銅石時代<br><span class="text-[11px] text-slate-400">前 5000–2000</span></td>
+              <td class="py-3.5 px-4 font-semibold text-white">湖泊水上木樁先民<br><span class="text-slate-400 text-xs">(Mostiščarji)</span></td>
+              <td class="py-3.5 px-4">盧比亞納沼澤 (Ig)<br>布萊德湖 (Lake Bled)</td>
+              <td class="py-3.5 px-4 text-emerald-300 font-medium">5,200 年最古老木輪軸 (UNESCO)<br>整木獨木舟 (Deblaki)</td>
+              <td class="py-3.5 px-4">奠定定居農業、水上干欄建築工藝與布萊德湖島開發</td>
+            </tr>
+
+            <tr class="hover:bg-amber-900/20 transition-colors">
+              <td class="py-3.5 px-4 font-mono font-bold text-amber-300">鐵器時代<br><span class="text-[11px] text-slate-400">前 4–1 世紀</span></td>
+              <td class="py-3.5 px-4 font-semibold text-white">凱爾特卡爾尼人 (Carni)<br><span class="text-slate-400 text-xs">陶里斯奇人 (Taurisci)</span></td>
+              <td class="py-3.5 px-4">克拉尼 (Carnium)<br>博希尼 (Bohinj)<br>瓦切 (Vače)</td>
+              <td class="py-3.5 px-4 text-amber-200 font-medium">瓦切青銅坐壺 (Vače Situla)<br>諾里庫姆高山冶鐵器具</td>
+              <td class="py-3.5 px-4"><strong>「卡尼奧拉（Carniola / Kranjska）」</strong>省名與克拉尼市名源頭</td>
+            </tr>
+
+            <tr class="hover:bg-cyan-950/20 transition-colors">
+              <td class="py-3.5 px-4 font-mono font-bold text-cyan-400">西元 6 世紀–至今<br><span class="text-[11px] text-slate-400">中古至現代</span></td>
+              <td class="py-3.5 px-4 font-semibold text-white">早期斯拉夫人 (Slavs)<br><span class="text-slate-400 text-xs">與在地原住民混血</span></td>
+              <td class="py-3.5 px-4">布萊德湖心島<br>特里格拉夫峰 (Triglav)<br>阿伊多夫斯基要塞</td>
+              <td class="py-3.5 px-4 text-cyan-300 font-medium">芝娃女神神廟遺址<br>三頭神信仰文化、早期斯拉夫墓葬</td>
+              <td class="py-3.5 px-4">形成現代斯洛維尼亞民族主體、語言、精神象徵與千年基因庫</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLUTE AUDIO SIMULATOR MODAL (WEB AUDIO API) -->
+  <div id="flute-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-xl w-full rounded-3xl p-6 sm:p-8 border border-amber-500/50 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+      <!-- Close button -->
+      <button onclick="closeFluteModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+          <i data-lucide="music" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="text-xs uppercase text-amber-400 tracking-wider font-semibold">Web Audio 史前樂器模擬器</span>
+          <h3 class="text-xl font-bold font-heading text-white">55,000 年前迪夫耶貝貝骨笛試聽</h3>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-300 mb-6 leading-relaxed">
+        這根由幼年洞熊股骨製成的骨笛殘件保留了4個穿孔。聲學家與古音樂學家（如 Ljuben Dimkaroski）研究證實，這些孔洞能吹奏出自然音階（Do, Re, Mi, Fa...）。點擊下方孔位或按鍵來模擬這來自五萬五千年前冰河時期的遠古共鳴！
+      </p>
+
+      <!-- Interactive Bone Visualizer -->
+      <div class="bg-stone-950 p-6 rounded-2xl border border-amber-800/40 relative flex flex-col items-center mb-6 shadow-inner">
+        <div class="w-full h-16 bg-gradient-to-r from-amber-100/90 via-amber-200/80 to-amber-100/70 rounded-full relative flex items-center justify-around px-8 shadow-lg border-2 border-amber-900/40">
+          <!-- Hole 1 -->
+          <button onclick="playFluteNote(523.25, 1)" id="hole-1" class="hole-btn w-9 h-9 rounded-full bg-stone-900 border-2 border-amber-950 hover:bg-amber-600 focus:bg-amber-500 transition-all flex items-center justify-center text-[10px] font-bold text-amber-200 shadow-inner">
+            C5
+          </button>
+          <!-- Hole 2 -->
+          <button onclick="playFluteNote(587.33, 2)" id="hole-2" class="hole-btn w-9 h-9 rounded-full bg-stone-900 border-2 border-amber-950 hover:bg-amber-600 focus:bg-amber-500 transition-all flex items-center justify-center text-[10px] font-bold text-amber-200 shadow-inner">
+            D5
+          </button>
+          <!-- Hole 3 -->
+          <button onclick="playFluteNote(659.25, 3)" id="hole-3" class="hole-btn w-9 h-9 rounded-full bg-stone-900 border-2 border-amber-950 hover:bg-amber-600 focus:bg-amber-500 transition-all flex items-center justify-center text-[10px] font-bold text-amber-200 shadow-inner">
+            E5
+          </button>
+          <!-- Hole 4 -->
+          <button onclick="playFluteNote(698.46, 4)" id="hole-4" class="hole-btn w-9 h-9 rounded-full bg-stone-900 border-2 border-amber-950 hover:bg-amber-600 focus:bg-amber-500 transition-all flex items-center justify-center text-[10px] font-bold text-amber-200 shadow-inner">
+            F5
+          </button>
+          <!-- Hole 5 (Overblown) -->
+          <button onclick="playFluteNote(783.99, 5)" id="hole-5" class="hole-btn w-9 h-9 rounded-full bg-stone-900 border-2 border-amber-950 hover:bg-amber-600 focus:bg-amber-500 transition-all flex items-center justify-center text-[10px] font-bold text-amber-200 shadow-inner">
+            G5
+          </button>
+        </div>
+        <span class="text-[11px] text-amber-400/80 font-mono mt-3">點擊上方孔位吹奏洞熊骨管共振（已結合泛音與殘響模擬）</span>
+      </div>
+
+      <!-- Quick Melody Player -->
+      <div class="flex items-center justify-between bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+        <span class="text-xs text-slate-300 font-medium">聽一段古樂復原旋律片段：</span>
+        <button onclick="playArchaicMelody()" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold transition-all flex items-center gap-1.5 shadow">
+          <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i> 自動演奏
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 py-12 px-4 md:px-8 bg-black/60 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-lake-600 flex items-center justify-center text-white font-bold">
+          <i data-lucide="compass" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <span class="text-slate-200 font-bold font-heading block text-sm">極東義大利與斯洛維尼亞數位策展深旅系列</span>
+          <span>文獻參考：Narodni muzej Slovenije、Inštitut za arheologijo ZRC SAZU、UNESCO World Heritage</span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <a href="#overview" class="hover:text-lake-400 transition-colors">研究首頁</a>
+        <a href="#gis-map" class="hover:text-lake-400 transition-colors">遺址 GIS</a>
+        <a href="#era1" class="hover:text-lake-400 transition-colors">舊石器</a>
+        <a href="#era3" class="hover:text-lake-400 transition-colors">凱爾特卡爾尼</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC & MAP ENGINE -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Archaeological Sites Dataset with coordinates and historical context
+    const sitesData = [
+      {
+        id: "bled_island",
+        category: "neolithic",
+        categoryAlt: "slavic",
+        title: "布萊德湖與湖心島 (Lake Bled & Island)",
+        slovenianName: "Blejski otok in Blejsko jezero",
+        lat: 46.3636,
+        lng: 14.0938,
+        era: "新石器至斯拉夫時代",
+        tags: ["整木獨木舟", "水神祭所", "芝娃神廟", "水上干欄"],
+        image: "assets/images/pile_dwellers.jpg",
+        description: "新石器時代先民在此划行獨木舟（Deblaki）捕魚避難；鐵器時代陶里斯奇人將湖心島視為水神 Belenus 聖域；西元 6 世紀斯拉夫人建立愛神芝娃（Živa）神廟，後改建為聖母朝聖教堂。"
+      },
+      {
+        id: "divje_babe",
+        category: "paleolithic",
+        title: "迪夫耶貝貝洞穴 (Divje Babe Cave)",
+        slovenianName: "Arheološko najdišče Divje babe",
+        lat: 46.1303,
+        lng: 13.9189,
+        era: "舊石器時代 (距今約 5.5–6 萬年前)",
+        tags: ["世界最古老骨笛", "尼安德塔人", "洞熊文化"],
+        image: "assets/images/neanderthal.jpg",
+        description: "出土全人類已知最古老的樂器「尼安德塔人骨笛（Divje Babe Flute）」，證實五萬五千年前阿爾卑斯原始居民已擁有音樂音階與精神神聖意識。"
+      },
+      {
+        id: "potocka_zijalka",
+        category: "paleolithic",
+        title: "波托奇卡洞穴 (Potočka zijalka Cave)",
+        slovenianName: "Potočka zijalka (Olševa)",
+        lat: 46.4358,
+        lng: 14.6738,
+        era: "舊石器時代晚期 (距今約 3.5 萬年前)",
+        tags: ["克羅馬儂智人", "奧瑞納文化", "高山洞熊狩獵"],
+        image: "assets/images/neanderthal.jpg",
+        description: "位於奧爾謝瓦山海拔 1,700 公尺的高山洞穴，出土歐洲最古老的骨針與數百件奧瑞納石刃、智人獵具、洞熊骨骼，為早期克羅瑪儂智人征服阿爾卑斯高山的關鍵見證。"
+      },
+      {
+        id: "betalov_spodmol",
+        category: "paleolithic",
+        title: "貝托夫岩棚遺址 (Betalov spodmol)",
+        slovenianName: "Arheološko najdišče Betalov spodmol",
+        lat: 45.7833,
+        lng: 14.2000,
+        era: "舊石器時代 (8層連續文化層)",
+        tags: ["尼安德塔人", "莫斯特石器", "地層層疊"],
+        image: "assets/images/neanderthal.jpg",
+        description: "擁有歐洲最清晰的舊石器連續沉積地層之一，出土了大量尼安德塔人莫斯特石器工業（勒瓦婁哇技術剝片）與動物骨骼切割痕跡。"
+      },
+      {
+        id: "ljubljana_marshes",
+        category: "neolithic",
+        title: "盧比亞納沼澤水上木樁聚落 (Ljubljana Marshes)",
+        slovenianName: "Kolišča na Ljubljanskem barju (UNESCO)",
+        lat: 45.9525,
+        lng: 14.4756,
+        era: "新石器至銅石並用時代 (前 5000–2000)",
+        tags: ["世界最古老木輪", "UNESCO遺產", "干欄聚落"],
+        image: "assets/images/pile_dwellers.jpg",
+        description: "UNESCO 世界文化遺產。先民在水上打樁建立干欄式房屋（Kolišča），出土距今 5,200 年前世界上最古老的木製車輪與輪軸（Stare Gmajne）。"
+      },
+      {
+        id: "kranj_carnium",
+        category: "celtic",
+        title: "克拉尼古城 (Kranj - Carnium)",
+        slovenianName: "Kranj (Prezgodovinsko naselje Carnium)",
+        lat: 46.2397,
+        lng: 14.3556,
+        era: "鐵器時代至羅馬 (西元前 4 世紀起)",
+        tags: ["卡爾尼人 (Carni)", "卡尼奧拉語源", "高地防禦要塞"],
+        image: "assets/images/celtic_carni.jpg",
+        description: "凱爾特卡爾尼人（Carni）首要聚落要塞。斯洛維尼亞歷史大省「卡尼奧拉（Carniola / Kranjska）」與名城克拉尼（Kranj）的名稱皆由此部族而來。"
+      },
+      {
+        id: "vace_situla",
+        category: "celtic",
+        title: "瓦切考古遺址 (Vače Situla Site)",
+        slovenianName: "Arheološko najdišče Vače",
+        lat: 46.1206,
+        lng: 14.8383,
+        era: "鐵器時代哈爾施塔特文化 (前 5 世紀)",
+        tags: ["瓦切青銅桶", "坐壺藝術", "凱爾特武士禮儀"],
+        image: "assets/images/celtic_carni.jpg",
+        description: "出土斯洛維尼亞國寶「瓦切坐壺（Vače Situla）」，浮雕細緻描繪了當時凱爾特與伊利里亞貴族的宴飲、摔角競賽與戰車武士出征禮俗。"
+      },
+      {
+        id: "bohinj_ajdovski",
+        category: "celtic",
+        title: "博希尼與阿伊多夫斯基要塞 (Bohinj & Ajdovski gradec)",
+        slovenianName: "Ajdovski gradec pri Bohinjski Bistrici",
+        lat: 46.2758,
+        lng: 13.9714,
+        era: "鐵器時代陶里斯奇人 (西元前 3 世紀–西元 6 世紀)",
+        tags: ["諾里克鐵礦", "陶里斯奇人", "斯拉夫定居點"],
+        image: "assets/images/celtic_carni.jpg",
+        description: "凱爾特陶里斯奇人高山冶鐵核心據點，後為斯拉夫異教先民定居，斯洛維尼亞大詩人普雷舍仁在此創作了著名史詩《薩瓦河畔的洗禮》。"
+      },
+      {
+        id: "triglav_peak",
+        category: "slavic",
+        title: "特里格拉夫聖山 (Mount Triglav)",
+        slovenianName: "Triglav (Julijske Alpe)",
+        lat: 46.3783,
+        lng: 13.8367,
+        era: "西元 6 世紀斯拉夫神話至今",
+        tags: ["斯拉夫三頭神", "國家象徵", "阿爾卑斯之巔"],
+        image: "assets/images/slavs_settlement.jpg",
+        description: "海拔 2,864 公尺斯洛維尼亞第一高峰。在斯拉夫神話中為掌管天界、地界、冥界的三頭神（Triglav）聖所，是斯洛維尼亞民族精神之核心。"
+      }
+    ];
+
+    // Leaflet Map Initialization
+    let map;
+    let markers = [];
+    let currentTileLayer;
+
+    const tileLayers = {
+      topo: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map: © OpenTopoMap (CC-BY-SA)',
+        maxZoom: 17
+      }),
+      satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © Esri',
+        maxZoom: 18
+      }),
+      dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap, © CartoDB',
+        maxZoom: 19
+      })
+    };
+
+    function initMap() {
+      // Centered around Lake Bled and Upper Carniola
+      map = L.map('archaeology-map', {
+        center: [46.26, 14.30],
+        zoom: 9,
+        layers: [tileLayers.topo]
+      });
+
+      currentTileLayer = 'topo';
+
+      // Custom marker icon creator
+      function getMarkerIcon(category) {
+        let color = '#c88d3f';
+        if (category === 'paleolithic') color = '#f59e0b';
+        if (category === 'neolithic') color = '#10b981';
+        if (category === 'celtic') color = '#d97706';
+        if (category === 'slavic') color = '#06b6d4';
+
+        return L.divIcon({
+          className: 'custom-map-pin',
+          html: `
+            <div style="
+              background: ${color};
+              width: 32px;
+              height: 32px;
+              border-radius: 50% 50% 50% 0;
+              transform: rotate(-45deg);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 2px solid white;
+              box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            ">
+              <div style="
+                width: 10px;
+                height: 10px;
+                background: white;
+                border-radius: 50%;
+                transform: rotate(45deg);
+              "></div>
+            </div>
+          `,
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
+        });
+      }
+
+      // Add markers
+      sitesData.forEach(site => {
+        const marker = L.marker([site.lat, site.lng], {
+          icon: getMarkerIcon(site.category)
+        }).addTo(map);
+
+        marker.siteData = site;
+
+        const popupContent = `
+          <div class="p-1 max-w-xs">
+            <span class="text-[10px] uppercase font-bold text-amber-400">${site.era}</span>
+            <h4 class="font-bold text-white text-sm mt-0.5">${site.title}</h4>
+            <p class="text-[11px] text-slate-400 italic mb-2">${site.slovenianName}</p>
+            <p class="text-xs text-slate-300 leading-relaxed">${site.description}</p>
+            <div class="mt-3 flex flex-wrap gap-1">
+              ${site.tags.map(t => `<span class="px-2 py-0.5 bg-slate-800 text-lake-300 rounded text-[10px]">${t}</span>`).join('')}
+            </div>
+          </div>
+        `;
+
+        marker.bindPopup(popupContent);
+
+        marker.on('click', () => {
+          highlightSiteCard(site.id);
+        });
+
+        markers.push(marker);
+      });
+
+      renderSidebarSites(sitesData);
+    }
+
+    function switchTileLayer(type) {
+      if (tileLayers[currentTileLayer]) {
+        map.removeLayer(tileLayers[currentTileLayer]);
+      }
+      tileLayers[type].addTo(map);
+      currentTileLayer = type;
+    }
+
+    function renderSidebarSites(sites) {
+      const container = document.getElementById('sites-list');
+      container.innerHTML = '';
+
+      sites.forEach(site => {
+        const card = document.createElement('div');
+        card.id = `card-${site.id}`;
+        card.className = "p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-lake-500/50 cursor-pointer transition-all duration-200 space-y-1.5";
+        
+        let badgeColor = "text-amber-400 bg-amber-950/60";
+        if (site.category === 'neolithic') badgeColor = "text-emerald-400 bg-emerald-950/60";
+        if (site.category === 'slavic') badgeColor = "text-cyan-400 bg-cyan-950/60";
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeColor}">${site.era.split(' ')[0]}</span>
+            <span class="text-[11px] text-slate-500 font-mono">${site.lat.toFixed(2)}°N, ${site.lng.toFixed(2)}°E</span>
+          </div>
+          <h4 class="text-sm font-bold text-white font-heading">${site.title}</h4>
+          <p class="text-xs text-slate-400 line-clamp-2">${site.description}</p>
+        `;
+
+        card.onclick = () => {
+          focusSiteOnMap(site.id);
+        };
+
+        container.appendChild(card);
+      });
+    }
+
+    function highlightSiteCard(siteId) {
+      document.querySelectorAll('#sites-list > div').forEach(el => {
+        el.classList.remove('border-lake-400', 'bg-lake-950/40', 'pulse-glow');
+      });
+      const activeCard = document.getElementById(`card-${siteId}`);
+      if (activeCard) {
+        activeCard.classList.add('border-lake-400', 'bg-lake-950/40');
+        activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function focusSiteOnMap(siteId) {
+      const marker = markers.find(m => m.siteData.id === siteId);
+      if (marker) {
+        map.flyTo([marker.siteData.lat, marker.siteData.lng], 12, {
+          duration: 1.2
+        });
+        marker.openPopup();
+        highlightSiteCard(siteId);
+
+        // Smooth scroll towards map if not in viewport
+        const mapElement = document.getElementById('gis-map');
+        if (window.scrollY > mapElement.offsetTop + mapElement.offsetHeight || window.scrollY < mapElement.offsetTop - 200) {
+          mapElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+    function filterMapMarkers(category) {
+      // Update button classes
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-lake-600', 'text-white');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+        if (btn.getAttribute('data-filter') === category) {
+          btn.classList.remove('bg-slate-800', 'text-slate-300');
+          btn.classList.add('bg-lake-600', 'text-white');
+        }
+      });
+
+      markers.forEach(marker => {
+        if (category === 'all' || marker.siteData.category === category || marker.siteData.categoryAlt === category) {
+          marker.addTo(map);
+        } else {
+          map.removeLayer(marker);
+        }
+      });
+
+      const filteredSites = category === 'all' 
+        ? sitesData 
+        : sitesData.filter(s => s.category === category || s.categoryAlt === category);
+      
+      renderSidebarSites(filteredSites);
+    }
+
+    function scrollToEra(eraId) {
+      const el = document.getElementById(eraId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // WEB AUDIO API SYNTHESIZER FOR DIVJE BABE FLUTE
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playFluteNote(freq, holeIndex) {
+      const ctx = getAudioContext();
+      const now = ctx.currentTime;
+
+      // Primary oscillator (Bone flute woodwind fundamental)
+      const osc = ctx.createOscillator();
+      const oscHarmonic = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      // Breath noise generator for woodwind authenticity
+      const bufferSize = ctx.sampleRate * 0.5;
+      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = noiseBuffer;
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(freq * 1.5, now);
+      noiseFilter.Q.setValueAtTime(3.0, now);
+      const noiseGain = ctx.createGain();
+
+      // Setup frequencies
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now);
+
+      oscHarmonic.type = 'triangle';
+      oscHarmonic.frequency.setValueAtTime(freq * 2, now);
+
+      // Lowpass filter simulating resonant cavity of bear femur
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(freq * 3, now);
+      filter.Q.setValueAtTime(2.5, now);
+
+      // Amplitude envelope (Gentle flute attack & soft decay)
+      gainNode.gain.setValueAtTime(0, now);
+      gainNode.gain.linearRampToValueAtTime(0.28, now + 0.08); // attack
+      gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.85); // release
+
+      noiseGain.gain.setValueAtTime(0, now);
+      noiseGain.gain.linearRampToValueAtTime(0.04, now + 0.04);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
+
+      // Connect nodes
+      osc.connect(filter);
+      oscHarmonic.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+
+      // Play
+      osc.start(now);
+      oscHarmonic.start(now);
+      noise.start(now);
+
+      osc.stop(now + 0.9);
+      oscHarmonic.stop(now + 0.9);
+      noise.stop(now + 0.9);
+
+      // Visual hole pulse
+      if (holeIndex) {
+        const btn = document.getElementById(`hole-${holeIndex}`);
+        if (btn) {
+          btn.classList.add('pulse-glow', 'bg-amber-500');
+          setTimeout(() => {
+            btn.classList.remove('pulse-glow', 'bg-amber-500');
+          }, 300);
+        }
+      }
+    }
+
+    function playArchaicMelody() {
+      const melody = [
+        { freq: 523.25, hole: 1, delay: 0 },
+        { freq: 587.33, hole: 2, delay: 400 },
+        { freq: 659.25, hole: 3, delay: 800 },
+        { freq: 587.33, hole: 2, delay: 1200 },
+        { freq: 698.46, hole: 4, delay: 1600 },
+        { freq: 659.25, hole: 3, delay: 2100 },
+        { freq: 523.25, hole: 1, delay: 2700 }
+      ];
+
+      melody.forEach(note => {
+        setTimeout(() => {
+          playFluteNote(note.freq, note.hole);
+        }, note.delay);
+      });
+    }
+
+    function openFluteModal() {
+      document.getElementById('flute-modal').classList.remove('hidden');
+    }
+
+    function closeFluteModal() {
+      document.getElementById('flute-modal').classList.add('hidden');
+    }
+
+    // Close modal on click outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('flute-modal');
+      if (event.target === modal) {
+        closeFluteModal();
+      }
+    }
+
+    // Initialize Map on Window Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initMap();
+    });
+  </script>
+</body>
+</html>
